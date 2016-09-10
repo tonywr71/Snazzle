@@ -22,7 +22,7 @@ namespace Snazzle.WebApi.Controllers
     }
 
     [HttpGet("[action]")]
-    [Authorize]
+    [Authorize(ActiveAuthenticationSchemes="Bearer")]
     public IEnumerable<WeatherForecast> WeatherForecasts()
     {
       return this.sampleDataService.GetAll();
