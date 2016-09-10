@@ -1,0 +1,25 @@
+﻿<h1>People</h1>
+
+<p *ngIf="!people"><em>Loading...</em></p>
+<table class='table' *ngIf="people">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Gender</th>
+      <th>Age</th>
+      <th>Pets</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let person of people">
+      <td>{{ person.name }}</td>
+      <td>{{ person.gender }}</td>
+      <td>{{ person.age }}</td>
+      <td>
+        <ul *ngFor="let pet of person.pets">
+          <li>{{pet.name}} - {{pet.type}}</li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
