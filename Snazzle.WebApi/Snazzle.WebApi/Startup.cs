@@ -77,6 +77,8 @@ namespace Snazzle.WebApi
       //app.UseCors(builder => builder.WithOrigins("http://localhost:5000"));
       //app.UseOwin(pipeline => { pipeline(next=> });
 
+      app.UseCors(builder => { builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader(); });
+
       app.UseIdentity();
 
       app.UseOAuthValidation();
