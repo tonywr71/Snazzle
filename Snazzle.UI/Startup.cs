@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using System.IO;
 
 namespace Snazzle
 {
@@ -53,6 +54,17 @@ namespace Snazzle
 
       app.UseDefaultFiles();
       app.UseStaticFiles();
+
+      //The following code performs the angular 2 re-write
+      //app.Use(async (context, next) => {
+      //  await next();
+
+      //  if (context.Response.StatusCode == 404 && !Path.HasExtension(context.Request.Path.Value))
+      //  {
+      //    context.Request.Path = "/cats-by-owner-gender"; // Put your Angular root page here 
+      //    await next();
+      //  }
+      //});
 
       //app.UseMvc(routes =>
       //{

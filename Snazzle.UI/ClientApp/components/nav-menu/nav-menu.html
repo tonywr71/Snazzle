@@ -37,6 +37,11 @@
                   <span class='glyphicon glyphicon-lock'></span> Login
                 </a>
               </li>
+              <li [routerLinkActive]="['link-active']">
+                <a [routerLink]="['/logout']">
+                  <span class='glyphicon glyphicon-lock'></span> Logout
+                </a>
+              </li>
             </ul>
         </div>
     </div>

@@ -11,6 +11,8 @@ import { routing } from '../../app.routing';
 import { People }         from '../people/people';
 import { CatsByOwnerGender }         from '../cats-by-owner-gender/cats-by-owner-gender';
 import { LoginComponent }         from '../login/login';
+import { LogoutComponent }         from '../login/logout';
+import { AuthenticationService } from '../../services/AuthenticationService';
 
 @NgModule({
     imports: [
@@ -26,9 +28,11 @@ import { LoginComponent }         from '../login/login';
         FetchData,
         People,
         CatsByOwnerGender,
-        LoginComponent
+        LoginComponent,
+        LogoutComponent
     ],
     providers: [
+        AuthenticationService
     ],
     bootstrap: [AppComponent]
 })
