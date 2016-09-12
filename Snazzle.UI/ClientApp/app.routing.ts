@@ -10,14 +10,11 @@ import { LogoutComponent } from './components/login/logout';
 import {AuthenticationService } from './services/AuthenticationService';
 
 const appRoutes: Routes = [
-    { path: '', redirectTo: 'cats-by-owner-gender', pathMatch: 'full' },
+    { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: 'home', component: Home },
     { path: 'counter', component: Counter },
     { path: 'fetch-data', component: FetchData, canActivate: [AuthenticationService] },
     { path: 'people', component: People },
-    { path: 'cats-by-owner-gender', component: CatsByOwnerGender },
-    { path: 'login', component: LoginComponent },
-    { path: 'logout', component: LogoutComponent },
     { path: '**', redirectTo: 'home' }
 ];
 

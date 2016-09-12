@@ -1,18 +1,24 @@
-import * as ng from '@angular/core';
+import { Component } from '@angular/core';
+import { AuthenticationService } from '../../services/AuthenticationService';
 
-@ng.Component({
+@Component({
   selector: 'home',
   template: require('./home.html')
 })
 export class Home {
     jwt: string;
      
-    constructor() {
+    constructor(private authenticationService: AuthenticationService) {
         this.jwt = localStorage.getItem("access_token");
         console.log(this.jwt);
     }
 
-    callApi() {
-
+    isAuthorized(): boolean {
+        var isAuthorized = this.authenticationService.isAuthorized();
+        this.jwt = localStorage.getItem("access_token");
+        return isAuthorized;
     }
+
+
+
 }
