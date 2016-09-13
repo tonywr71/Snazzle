@@ -52,19 +52,20 @@ namespace Snazzle
         app.UseExceptionHandler("/Home/Error");
       }
 
+      //The following code enables angular 2 deep linking
+      app.Use(async (context, next) =>
+      {
+        await next();
+
+        if (context.Response.StatusCode == 404 && !Path.HasExtension(context.Request.Path.Value))
+        {
+          context.Request.Path = "/"; // Angular root page here 
+          await next();
+        }
+      });
+
       app.UseDefaultFiles();
       app.UseStaticFiles();
-
-      //The following code performs the angular 2 re-write
-      //app.Use(async (context, next) => {
-      //  await next();
-
-      //  if (context.Response.StatusCode == 404 && !Path.HasExtension(context.Request.Path.Value))
-      //  {
-      //    context.Request.Path = "/cats-by-owner-gender"; // Put your Angular root page here 
-      //    await next();
-      //  }
-      //});
 
       //app.UseMvc(routes =>
       //{

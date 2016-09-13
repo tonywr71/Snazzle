@@ -65,11 +65,11 @@ namespace Snazzle.WebApi.Controllers
 
         var identity = await _userManager.CreateIdentityAsync(user, request.GetScopes());
 
-        //// Add a custom claim that will be persisted
-        //// in both the access and the identity tokens.
-        //identity.AddClaim("given_name", user.GivenName,
-        //    OpenIdConnectConstants.Destinations.AccessToken,
-        //    OpenIdConnectConstants.Destinations.IdentityToken);
+        // Add a custom claim that will be persisted
+        // in both the access and the identity tokens.
+        identity.AddClaim("username", user.UserName,
+            OpenIdConnectConstants.Destinations.AccessToken,
+            OpenIdConnectConstants.Destinations.IdentityToken);
 
         // Create a new authentication ticket holding the user identity.
         var ticket = new AuthenticationTicket(

@@ -79,7 +79,7 @@ namespace Snazzle.WebApi
 
       app.UseCors(builder => { builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader(); });
 
-      app.UseIdentity();
+      //app.UseIdentity();
 
       app.UseOAuthValidation();
 
