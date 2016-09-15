@@ -24,7 +24,8 @@
     "xunit": "2.2.0-beta2-build3300",
     "xunit.runner.visualstudio": "2.2.0-beta2-build1149",
     "AspNet.Security.OAuth.Validation": "1.0.0-alpha2-final",
-    "OpenIddict": "1.0.0-*"
+    "OpenIddict": "1.0.0-*",
+    "OpenIddict.Mvc": "1.0.0-*"
   },
 
   "tools": {

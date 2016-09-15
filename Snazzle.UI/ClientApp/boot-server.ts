@@ -1,28 +1,28 @@
 import 'angular2-universal/polyfills';
 import * as ngCore from '@angular/core';
 import { APP_BASE_HREF } from '@angular/common';
-import { provideRouter } from '@angular/router';
+import { provideRoutes } from '@angular/router';
 import * as ngUniversal from 'angular2-universal';
 import { BASE_URL, ORIGIN_URL, REQUEST_URL } from 'angular2-universal/common';
-import { App } from './components/app/app';
-import { routes } from './routes';
+import { AppComponent } from './components/app/app.component';
+import { routing, appRoutes } from './app.routing';
 
 const bootloader = ngUniversal.bootloader({
     async: true,
     preboot: false,
     platformProviders: [
-        ngCore.provide(APP_BASE_HREF, { useValue: '/' }),
+        //ngCore.provide(APP_BASE_HREF, { useValue: '/' }),
     ]
 });
 
 export default function (params: any): Promise<{ html: string, globals?: any }> {
     const config: ngUniversal.AppConfig = {
-        directives: [App],
+        directives: [AppComponent],
         providers: [
-            ngCore.provide(ORIGIN_URL, { useValue: params.origin }),
-            ngCore.provide(REQUEST_URL, { useValue: params.url }),
+            //ngCore.provide(ORIGIN_URL, { useValue: params.origin }),
+            //ngCore.provide(REQUEST_URL, { useValue: params.url }),
             ...ngUniversal.NODE_HTTP_PROVIDERS,
-            provideRouter(routes),
+            provideRoutes(appRoutes),
             ...ngUniversal.NODE_LOCATION_PROVIDERS,
         ],
         // TODO: Render just the <app> component instead of wrapping it inside an extra HTML document

@@ -9,7 +9,7 @@ import { LoginComponent } from './components/login/login';
 import { LogoutComponent } from './components/login/logout';
 import {AuthenticationService } from './services/AuthenticationService';
 
-const appRoutes: Routes = [
+export const appRoutes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: 'home', component: Home },
     { path: 'counter', component: Counter },

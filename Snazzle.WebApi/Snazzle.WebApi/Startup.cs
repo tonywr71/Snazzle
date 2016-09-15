@@ -12,6 +12,8 @@ using Snazzle.WebApi.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using System.IO;
+using OpenIddict;
+using CryptoHelper;
 
 namespace Snazzle.WebApi
 {
@@ -38,7 +40,7 @@ namespace Snazzle.WebApi
       services.AddCors();
       services.AddMvc();
 
-      services.AddDbContext<SnazzleDbContext>(options=> options.UseSqlServer(Configuration["ConnectionStrings:SnazzleDbConnection"]));
+      services.AddDbContext<SnazzleDbContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:SnazzleDbConnection"]));
 
       services.AddScoped<IPeopleDataService, PeopleDataService>();
 
@@ -54,11 +56,27 @@ namespace Snazzle.WebApi
       .AddDefaultTokenProviders();
 
       services.AddOpenIddict<SnazzleUser, SnazzleDbContext>()
+
+        // Register the ASP.NET Core MVC binder used by OpenIddict.
+        // Note: if you don't call this method, you won't be able to
+        // bind OpenIdConnectRequest or OpenIdConnectResponse parameters.
+        .AddMvcBinders()
+
+        // Enable the authorization, logout, and userinfo endpoints.
+        .EnableAuthorizationEndpoint("/connect/authorize")
+        .EnableLogoutEndpoint("/connect/logout")
+        .EnableUserinfoEndpoint("/connect/userinfo")
+
         // Enable the token endpoint (required to use the password flow).
         .EnableTokenEndpoint("/connect/token")
 
         // Allow client applications to use the grant_type=password flow.
         .AllowPasswordFlow()
+
+        // Note: the Mvc.Client sample only uses the code flow and the password flow, but you
+        // can enable the other flows if you need to support implicit or client credentials.
+        .AllowAuthorizationCodeFlow()
+        .AllowRefreshTokenFlow()
 
         // During development, you can disable the HTTPS requirement.
         .DisableHttpsRequirement()
@@ -78,13 +96,54 @@ namespace Snazzle.WebApi
 
       app.UseCors(builder => { builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader(); });
 
-      //app.UseIdentity();
+      app.UseIdentity();
 
       app.UseOAuthValidation();
 
       app.UseOpenIddict();
 
       app.UseMvc();
+
+      using (var context = new SnazzleDbContext(
+                this.Configuration,
+                app.ApplicationServices.GetRequiredService<DbContextOptions<SnazzleDbContext>>()))
+      {
+        context.Database.EnsureCreated();
+
+        if (!context.Applications.Any())
+        {
+          context.Applications.Add(new OpenIddictApplication
+          {
+            // Note: these settings must match the application details
+            // inserted in the database at the server level.
+            ClientId = "snazzleClient",
+            ClientSecret = Crypto.HashPassword("secret_secret_secret"),
+            DisplayName = "Snazzle client application",
+            LogoutRedirectUri = "http://localhost:5100/",
+            RedirectUri = "http://localhost:5100/signin-oidc",
+            Type = OpenIddictConstants.ClientTypes.Confidential
+          });
+
+          // To test this sample with Postman, use the following settings:
+          // 
+          // * Authorization URL: http://localhost:5100/connect/authorize
+          // * Access token URL: http://localhost:5100/connect/token
+          // * Client ID: postman
+          // * Client secret: [blank] (not used with public clients)
+          // * Scope: openid email profile roles
+          // * Grant type: authorization code
+          // * Request access token locally: yes
+          context.Applications.Add(new OpenIddictApplication
+          {
+            ClientId = "postman",
+            DisplayName = "Postman",
+            RedirectUri = "https://www.getpostman.com/oauth2/callback",
+            Type = OpenIddictConstants.ClientTypes.Public
+          });
+
+          context.SaveChanges();
+        }
+      }
 
       seeder.EnsureSeedData().Wait();
 
