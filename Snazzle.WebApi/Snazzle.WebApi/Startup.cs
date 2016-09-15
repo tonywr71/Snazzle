@@ -110,47 +110,6 @@ namespace Snazzle.WebApi
 
       app.UseMvc();
 
-      using (var context = new SnazzleDbContext(
-                this.Configuration,
-                app.ApplicationServices.GetRequiredService<DbContextOptions<SnazzleDbContext>>()))
-      {
-        context.Database.EnsureCreated();
-
-        if (!context.Applications.Any())
-        {
-          context.Applications.Add(new OpenIddictApplication
-          {
-            // Note: these settings must match the application details
-            // inserted in the database at the server level.
-            ClientId = "snazzleClient",
-            ClientSecret = Crypto.HashPassword("secret_secret_secret"),
-            DisplayName = "Snazzle client application",
-            LogoutRedirectUri = "http://localhost:5100/",
-            RedirectUri = "http://localhost:5100/signin-oidc",
-            Type = OpenIddictConstants.ClientTypes.Confidential
-          });
-
-          // To test this sample with Postman, use the following settings:
-          // 
-          // * Authorization URL: http://localhost:5100/connect/authorize
-          // * Access token URL: http://localhost:5100/connect/token
-          // * Client ID: postman
-          // * Client secret: [blank] (not used with public clients)
-          // * Scope: openid email profile roles
-          // * Grant type: authorization code
-          // * Request access token locally: yes
-          context.Applications.Add(new OpenIddictApplication
-          {
-            ClientId = "postman",
-            DisplayName = "Postman",
-            RedirectUri = "https://www.getpostman.com/oauth2/callback",
-            Type = OpenIddictConstants.ClientTypes.Public
-          });
-
-          context.SaveChanges();
-        }
-      }
-
       seeder.EnsureSeedData().Wait();
 
     }
