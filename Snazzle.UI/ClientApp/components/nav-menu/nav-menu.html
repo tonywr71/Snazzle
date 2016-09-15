@@ -22,7 +22,7 @@
                   <span class='glyphicon glyphicon-education'></span> Counter
                 </a>
               </li>
-              <li [routerLinkActive]="['link-active']">
+              <li *ngIf="isAuthorized()" [routerLinkActive]="['link-active']">
                 <a [routerLink]="['/fetch-data']">
                   <span class='glyphicon glyphicon-tree-conifer'></span> Fetch data
                 </a>
