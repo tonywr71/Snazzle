@@ -1,5 +1,6 @@
 import * as ng from '@angular/core';
-import { Http, Headers } from '@angular/http';
+import { Headers } from '@angular/http';
+import { HttpInterceptor } from '../../services/HttpInterceptor'
 import { AuthenticationService } from '../../services/AuthenticationService';
 import { Router } from '@angular/router';
 
@@ -10,7 +11,7 @@ import { Router } from '@angular/router';
 export class FetchData {
     public forecasts: WeatherForecast[];
 
-    constructor(private authenticationService: AuthenticationService, private http: Http, private router: Router) {
+    constructor(private authenticationService: AuthenticationService, private http: HttpInterceptor, private router: Router) {
 
         var jwt = localStorage.getItem("access_token");
         console.log('has jwt:');
@@ -22,15 +23,16 @@ export class FetchData {
             .subscribe(result =>
             {
             this.forecasts = result.json();
-            },
-            error =>
-            {
-                if (error.status === 401) {
-                    authenticationService.logout();
-                    this.router.navigate(['', '/home']);
-                }
-                console.log("An error occured!" + error.statusText);
-            });
+            }
+            //,error =>
+            //{
+            //    if (error.status === 401) {
+            //        authenticationService.logout();
+            //        this.router.navigate(['', '/home']);
+            //    }
+            //    console.log("An error occured!" + error.statusText);
+            //}
+        );
     }
 }
 

@@ -30,8 +30,6 @@ namespace Snazzle
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
     {
-      // Add framework services.
-      //services.AddMvc();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -89,16 +87,6 @@ namespace Snazzle
       app.UseDefaultFiles();
       app.UseStaticFiles();
 
-      //app.UseMvc(routes =>
-      //{
-      //    routes.MapRoute(
-      //        name: "default",
-      //        template: "{controller=Home}/{action=Index}/{id?}");
-
-      //    routes.MapSpaFallbackRoute(
-      //        name: "spa-fallback",
-      //        defaults: new { controller = "Home", action = "Index" });
-      //});
     }
   }
 }

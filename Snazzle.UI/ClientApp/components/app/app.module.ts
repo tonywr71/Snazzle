@@ -13,6 +13,7 @@ import { CatsByOwnerGender }         from '../cats-by-owner-gender/cats-by-owner
 import { LoginComponent }         from '../login/login';
 import { LogoutComponent }         from '../login/logout';
 import { AuthenticationService } from '../../services/AuthenticationService';
+import { HttpInterceptor } from '../../services/HttpInterceptor';
 
 @NgModule({
     imports: [
@@ -32,7 +33,8 @@ import { AuthenticationService } from '../../services/AuthenticationService';
         LogoutComponent
     ],
     providers: [
-        AuthenticationService
+        AuthenticationService,
+        HttpInterceptor
     ],
     bootstrap: [AppComponent]
 })
