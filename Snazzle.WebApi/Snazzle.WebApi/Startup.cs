@@ -98,6 +98,12 @@ namespace Snazzle.WebApi
 
       app.UseIdentity();
 
+      app.UseGoogleAuthentication(new GoogleOptions
+      {
+        ClientId = "560027070069-37ldt4kfuohhu3m495hk2j4pjp92d382.apps.googleusercontent.com",
+        ClientSecret = "n2Q-GEw9RQjzcRbU3qhfTj8f"
+      });
+
       app.UseOAuthValidation();
 
       app.UseOpenIddict();
