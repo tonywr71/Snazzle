@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System.IO;
+using NWebsec.AspNetCore.Middleware;
 
 namespace Snazzle
 {
@@ -39,6 +40,26 @@ namespace Snazzle
       loggerFactory.AddConsole(Configuration.GetSection("Logging"));
       loggerFactory.AddDebug();
 
+      app.UseCsp(options => options
+               .DefaultSources(directive => directive.Self())
+               //.ConnectSources(directive=>directive.CustomSources("http://localhost:5100/api/SampleData/WeatherForecasts"))
+               .ConnectSources(directive=>directive.CustomSources("*") )
+               .ImageSources(directive => directive.Self()
+                   .CustomSources("*"))
+               .ScriptSources(directive => directive.Self()
+               .UnsafeEval()
+                   .UnsafeInline())
+               .FontSources(directive=>directive.Self()
+                   .CustomSources("data:"))
+               .StyleSources(directive => directive.Self()
+                   .UnsafeInline()));
+
+      app.UseXContentTypeOptions();
+
+      app.UseXfo(options => options.Deny());
+
+      app.UseXXssProtection(options => options.EnabledWithBlockMode());
+
       if (env.IsDevelopment())
       {
         app.UseDeveloperExceptionPage();
@@ -62,6 +83,7 @@ namespace Snazzle
           context.Request.Path = "/"; // Angular root page here 
           await next();
         }
+
       });
 
       app.UseDefaultFiles();

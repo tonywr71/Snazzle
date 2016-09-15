@@ -1,5 +1,7 @@
 import * as ng from '@angular/core';
 import { Http, Headers } from '@angular/http';
+import { AuthenticationService } from '../../services/AuthenticationService';
+import { Router } from '@angular/router';
 
 @ng.Component({
   selector: 'fetch-data',
@@ -8,7 +10,7 @@ import { Http, Headers } from '@angular/http';
 export class FetchData {
     public forecasts: WeatherForecast[];
 
-    constructor(http: Http) {
+    constructor(private authenticationService: AuthenticationService, private http: Http, private router: Router) {
 
         var jwt = localStorage.getItem("access_token");
         console.log('has jwt:');
@@ -16,9 +18,19 @@ export class FetchData {
         var headers = new Headers();
         headers.append('Authorization', 'Bearer ' + jwt );
 
-        http.get('http://localhost:5100/api/SampleData/WeatherForecasts', { headers: headers }).subscribe(result => {
+        http.get('http://localhost:5100/api/SampleData/WeatherForecasts', { headers: headers })
+            .subscribe(result =>
+            {
             this.forecasts = result.json();
-        });
+            },
+            error =>
+            {
+                if (error.status === 401) {
+                    authenticationService.logout();
+                    this.router.navigate(['', '/home']);
+                }
+                console.log("An error occured!" + error.statusText);
+            });
     }
 }
 

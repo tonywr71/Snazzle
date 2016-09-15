@@ -11,6 +11,7 @@ using Snazzle.WebApi.Services;
 using Snazzle.WebApi.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using System.IO;
 
 namespace Snazzle.WebApi
 {
@@ -74,8 +75,6 @@ namespace Snazzle.WebApi
     {
       loggerFactory.AddConsole(Configuration.GetSection("Logging"));
       loggerFactory.AddDebug();
-      //app.UseCors(builder => builder.WithOrigins("http://localhost:5000"));
-      //app.UseOwin(pipeline => { pipeline(next=> });
 
       app.UseCors(builder => { builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader(); });
 
