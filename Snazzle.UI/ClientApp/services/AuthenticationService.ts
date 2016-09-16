@@ -17,7 +17,7 @@ export class AuthenticationService implements CanActivate {
     login(username, password) {
 
         let url = "http://localhost:5100/connect/token";
-        let body = "grant_type=password&username=" + username + "&password=" + password;
+        let body = "grant_type=password&client_id=snazzleClient&username=" + username + "&password=" + password + "&scope=roles";
         let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
         let options = new RequestOptions({ headers: headers });
 
@@ -27,6 +27,7 @@ export class AuthenticationService implements CanActivate {
                 localStorage.setItem('expires_in', response.json().expires_in);
                 localStorage.setItem('token_type', response.json().token_type);
                 localStorage.setItem('userName', username);
+
                 this.router.navigate(['home']);
             },
             error => {
@@ -35,21 +36,6 @@ export class AuthenticationService implements CanActivate {
             }
         );
 
-        //return this.http
-        //    .post(
-        //    '/login',
-        //    JSON.stringify({ email, password }),
-        //    { headers }
-        //    )
-        //    .map(res => res.json())
-        //    .map((res) => {
-        //        if (res.success) {
-        //            localStorage.setItem('auth_token', res.auth_token);
-        //            this.loggedIn = true;
-        //        }
-
-        //        return res.success;
-        //    });
     }
 
     canActivate(): boolean {

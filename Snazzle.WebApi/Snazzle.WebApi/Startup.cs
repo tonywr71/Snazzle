@@ -81,6 +81,8 @@ namespace Snazzle.WebApi
         // During development, you can disable the HTTPS requirement.
         .DisableHttpsRequirement()
 
+        //.UseJsonWebTokens()
+
         // Register a new ephemeral key, that is discarded when the application
         // shuts down. Tokens signed using this key are automatically invalidated.
         // This method should only be used during development.
@@ -107,6 +109,15 @@ namespace Snazzle.WebApi
       app.UseOAuthValidation();
 
       app.UseOpenIddict();
+
+      //app.UseJwtBearerAuthentication(new JwtBearerOptions
+      //{
+      //  AutomaticAuthenticate = true,
+      //  AutomaticChallenge = true,
+      //  RequireHttpsMetadata = false,
+      //  Audience = "http://localhost:5000/",
+      //  Authority = "http://localhost:5000/",
+      //});
 
       app.UseMvc();
 

@@ -39,4 +39,8 @@ import { HttpInterceptor } from '../../services/HttpInterceptor';
     bootstrap: [AppComponent]
 })
 export class AppModule {
+    constructor() {
+        console.log("startup!");
+    }
+
 }

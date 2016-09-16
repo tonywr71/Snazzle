@@ -1,10 +1,12 @@
 ﻿using CryptoHelper;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using OpenIddict;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Snazzle.WebApi.Models
@@ -13,28 +15,70 @@ namespace Snazzle.WebApi.Models
   {
     private SnazzleDbContext context;
     private UserManager<SnazzleUser> userManager;
+    private RoleManager<IdentityRole> roleManager;
 
-    public SnazzleDbContextSeedData(SnazzleDbContext context, UserManager<SnazzleUser> userManager)
+    public SnazzleDbContextSeedData(SnazzleDbContext context, UserManager<SnazzleUser> userManager, RoleManager<IdentityRole> roleManager)
     {
       this.context = context;
       this.userManager = userManager;
+      this.roleManager = roleManager;
     }
 
     public async Task EnsureSeedData()
     {
       context.Database.EnsureCreated();
 
-      if (await this.userManager.FindByEmailAsync("tony@hotreb.com") == null)
+      var adminRole = "Admins";
+      if (await this.roleManager.RoleExistsAsync(adminRole) == false)
+      {
+        var roleResult = await this.roleManager.CreateAsync(new IdentityRole(adminRole));
+        if (!roleResult.Succeeded)
+        {
+          foreach (var error in roleResult.Errors)
+          {
+            Debug.WriteLine(error.Description);
+          }
+        }
+      }
+
+      var snazzleUser = await this.userManager.FindByEmailAsync("tony@hotreb.com");
+      if (snazzleUser == null)
       {
         var user = new SnazzleUser
         {
           UserName = "tony",
           Email = "tony@hotreb.com"
         };
-        var result = await this.userManager.CreateAsync(user, "P@ssword1!");
-        if (!result.Succeeded)
+        var userResult = await this.userManager.CreateAsync(user, "P@ssword1!");
+        if (!userResult.Succeeded)
         {
-          foreach (var error in result.Errors)
+          foreach (var error in userResult.Errors)
+          {
+            Debug.WriteLine(error.Description);
+          }
+        }
+
+      }
+
+      if (await this.userManager.IsInRoleAsync(snazzleUser, adminRole)==false)
+      {
+        var userInRoleResult = await this.userManager.AddToRoleAsync(snazzleUser, adminRole);
+        if (!userInRoleResult.Succeeded)
+        {
+          foreach (var error in userInRoleResult.Errors)
+          {
+            Debug.WriteLine(error.Description);
+          }
+        }
+      }
+
+      var claim = (await this.userManager.GetClaimsAsync(snazzleUser)).FirstOrDefault(c=>c.Type==ClaimTypes.Role.ToString());
+      if (claim == null)
+      {
+        var addClaimResult = await this.userManager.AddClaimAsync(snazzleUser, new Claim(ClaimTypes.Role.ToString(), adminRole));
+        if (!addClaimResult.Succeeded)
+        {
+          foreach (var error in addClaimResult.Errors)
           {
             Debug.WriteLine(error.Description);
           }
@@ -67,11 +111,11 @@ namespace Snazzle.WebApi.Models
           // Note: these settings must match the application details
           // inserted in the database at the server level.
           ClientId = "snazzleClient",
-          ClientSecret = Crypto.HashPassword("secret_secret_secret"),
+          //ClientSecret = Crypto.HashPassword("secret_secret_secret"),
           DisplayName = "Snazzle client application",
           LogoutRedirectUri = "http://localhost:5100/",
           RedirectUri = "http://localhost:5100/signin-oidc",
-          Type = OpenIddictConstants.ClientTypes.Confidential
+          Type = OpenIddictConstants.ClientTypes.Public
         });
 
         // To test this sample with Postman, use the following settings:

@@ -23,7 +23,7 @@ namespace Snazzle.WebApi.Controllers
     }
 
     [HttpGet("[action]")]
-    [Authorize(ActiveAuthenticationSchemes="Bearer")]
+    [Authorize(ActiveAuthenticationSchemes="Bearer", Roles="Admins")]
     public IEnumerable<WeatherForecast> WeatherForecasts()
     {
       var username = User.Claims.FirstOrDefault(s => s.Type == "username").Value;
