@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Cors;
 using Snazzle.WebApi.Services;
 using Microsoft.AspNetCore.Authorization;
 using System.Diagnostics;
+using System.Security.Claims;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -28,6 +29,12 @@ namespace Snazzle.WebApi.Controllers
     {
       var username = User.Claims.FirstOrDefault(s => s.Type == "username").Value;
       Debug.WriteLine(username);
+
+      var identity = User.Identity as ClaimsIdentity;
+      if (identity != null)
+      {
+        Debug.WriteLine(identity.Name);
+      }
 
       return this.sampleDataService.GetAll();
 

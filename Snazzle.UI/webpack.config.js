@@ -20,7 +20,7 @@ module.exports = merge({
     ]
   },
   entry: {
-    main: ['./ClientApp/boot-client.ts']
+    //main: ['./ClientApp/boot-client.ts']
   },
   output: {
     path: path.join(__dirname, 'wwwroot', 'dist'),
