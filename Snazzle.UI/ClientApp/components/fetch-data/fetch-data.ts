@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 
 @ng.Component({
   selector: 'fetch-data',
-  template: require('./fetch-data.html')
+  template: require('./fetch-data.html') 
 })
 export class FetchData {
     public forecasts: WeatherForecast[];

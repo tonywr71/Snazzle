@@ -10,7 +10,7 @@ export class HttpInterceptor {
     }
 
     request(url: string | Request, options?: RequestOptionsArgs): Observable<Response> {
-        return this.intercept(this.http.request(url, options));
+        return this.intercept(this.http.request(url, options)); 
     }
 
     get(url: string, options?: RequestOptionsArgs): Observable<Response> {
