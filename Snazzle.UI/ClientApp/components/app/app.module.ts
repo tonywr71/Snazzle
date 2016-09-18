@@ -9,7 +9,6 @@ import { NavMenu }         from '../nav-menu/nav-menu';
 import { AppComponent }         from './app.component';
 import { routing } from '../../app.routing';
 import { People }         from '../people/people';
-import { CatsByOwnerGender }         from '../cats-by-owner-gender/cats-by-owner-gender';
 import { LoginComponent }         from '../login/login';
 import { LogoutComponent }         from '../login/logout';
 import { AuthenticationService } from '../../services/AuthenticationService';
@@ -28,7 +27,6 @@ import { HttpInterceptor } from '../../services/HttpInterceptor';
         Counter,
         FetchData,
         People,
-        CatsByOwnerGender,
         LoginComponent,
         LogoutComponent
     ],
