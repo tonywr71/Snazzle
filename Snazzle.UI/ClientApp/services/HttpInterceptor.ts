@@ -44,7 +44,8 @@ export class HttpInterceptor {
 
     intercept(observable: Observable<Response>): Observable<Response> {
         return observable.catch((err, source) => {
-            if (err.status == 401 && !_.endsWith(err.url, 'api//connect/token')) {
+            if (err.status == 401 && !err.url.endsWith('api/connect/token')) {
+                localStorage.removeItem("access_token");
                 this.router.navigate(['/']);
                 return Observable.empty();
             } else {
