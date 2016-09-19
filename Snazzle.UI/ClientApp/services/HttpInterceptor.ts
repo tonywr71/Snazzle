@@ -3,6 +3,8 @@ import { Http, Headers, Request, RequestOptions, RequestOptionsArgs, Response } 
 import { AuthenticationService } from './AuthenticationService';
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
+import 'rxjs/Rx';
+
 
 @Injectable()
 export class HttpInterceptor {
@@ -41,12 +43,17 @@ export class HttpInterceptor {
     }
 
     intercept(observable: Observable<Response>): Observable<Response> {
-        observable.subscribe(r => { }, error => {
-            if (error.status === 401) {
-                this.authenticationService.logout();
-                this.router.navigate(['', '/home']);
+        return observable.catch((err, source) => {
+            if (err.status == 401 && !_.endsWith(err.url, 'api//connect/token')) {
+                this.router.navigate(['/']);
+                return Observable.empty();
+            } else {
+                return Observable.throw(err);
             }
         });
-        return observable;
+    }
+    public handleError(error: Response) {
+        console.error(error);
+        return Observable.throw(error.json().error || 'Server error');
     }
 }
