@@ -1,0 +1,10 @@
+<h4>Login</h4>
+<br />
+<form role="form" (submit)="login($event, username.value, password.value)" *ngIf="!isLoggedIn">
+  <input type="text" #username id="username" required="required" placeholder="Username"> <br />
+  <input type="password" #password id="password" required="required" placeholder="Password"> <br />
+  <button type="submit">Login</button> <br />
+</form>
+
+  <!--<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent mdl-button--raised" (click)="login()" *ngIf="!isLoggedIn">Login</button>-->
+<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent mdl-button--raised" (click)="logout()" *ngIf="isLoggedIn">Logout</button>

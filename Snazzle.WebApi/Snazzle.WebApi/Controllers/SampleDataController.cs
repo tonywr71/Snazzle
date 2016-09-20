@@ -27,9 +27,6 @@ namespace Snazzle.WebApi.Controllers
     [Authorize(ActiveAuthenticationSchemes="Bearer", Roles="Admins")]
     public IEnumerable<WeatherForecast> WeatherForecasts()
     {
-      var username = User.Claims.FirstOrDefault(s => s.Type == "username").Value;
-      Debug.WriteLine(username);
-
       var identity = User.Identity as ClaimsIdentity;
       if (identity != null)
       {

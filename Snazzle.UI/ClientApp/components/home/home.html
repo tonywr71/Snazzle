@@ -1,9 +1,0 @@
-<h1>Hello from Angular 2</h1>
-
-<h2 *ngIf="isAuthorized()">You are logged in</h2>
-<h2 *ngIf="!isAuthorized()">You are logged out</h2>
-
-<h2 *ngIf="isAuthorized()">Your JWT is:</h2>
-<pre *ngIf="isAuthorized()" class="jwt"><code>{{ jwt }}</code></pre>
-<logout *ngIf="isAuthorized()"></logout>
-<login *ngIf="!isAuthorized()"></login>

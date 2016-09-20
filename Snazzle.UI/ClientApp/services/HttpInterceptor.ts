@@ -42,6 +42,12 @@ export class HttpInterceptor {
         return options;
     }
 
+    // Note: the catch method did not work out of the box. I had to change the typescriptServices.js file, found
+    // in C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\CommonExtensions\Microsoft\TypeScript
+    // as per an issue found on github: https://github.com/Microsoft/TypeScript/issues/8518
+    // specifically a comment made by mhegacy. It suggested that I should not need to do this if I have Update 3 RTM 
+    // installed, but that was not the case for me.
+
     intercept(observable: Observable<Response>): Observable<Response> {
         return observable.catch((err, source) => {
             if (err.status == 401 && !err.url.endsWith('api/connect/token')) {

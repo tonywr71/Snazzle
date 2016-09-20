@@ -3,9 +3,9 @@ import * as ngCore from '@angular/core';
 import { APP_BASE_HREF } from '@angular/common';
 import { provideRoutes } from '@angular/router';
 import * as ngUniversal from 'angular2-universal';
-import { BASE_URL, ORIGIN_URL, REQUEST_URL } from 'angular2-universal/common';
-import { AppComponent } from './components/app/app.component';
-import { routing, appRoutes } from './app.routing';
+//import { APP_BASE_URL, ORIGIN_URL, REQUEST_URL } from 'angular2-universal/common';
+import { AppComponent } from './app/app.component';
+import { AppRoutingModule, appRoutes } from './app.routing';
 
 const bootloader = ngUniversal.bootloader({
     async: true,
