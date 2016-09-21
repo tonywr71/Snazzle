@@ -1,0 +1,79 @@
+﻿<div class="global-wrapper " style="position: absolute; top: 0; left: 0; height: 100%; width: 100%;background-color:#333;">
+  <div class="header">
+    <div class="wrapper">
+      <div class="container" style="padding-top:5px;">
+        <div class="row">
+          <div class="col-md-1"></div>
+          <div class="col-md-3"><img alt="" [src]="logo" ></div>
+          <div class="col-md-8" style="padding-top:15px;">
+            <form role="form" (submit)="login($event, loginEmail.value, loginPassword.value)" id="login-form">
+              <label for="login-email">Email</label>
+              <input type="email" #loginEmail class="login-email" autocapitalize="off" tabindex="1" id="login-email" placeholder="Email" autofocus="autofocus">
+              <label for="login-password"></label><input type="password" #loginPassword class="login-password" id="login-password" aria-required="true" tabindex="1" placeholder="Password">
+              <input tabindex="1" id="login-submit" class="login submit-button" type="submit" value="Sign in" ([disabled])="!hasData(loginEmail.value, loginPassword.value)">
+              <!--<a class="link-forgot-password" tabindex="1" href="https://www.linkedin.com/uas/request-password-reset?trk=uno-reg-guest-home-forgot-password">Forgot password?</a>-->
+              <!--<div id="login-callout" class="hopscotch-bubble animated hopscotch-callout no-number hidden" tabindex="-1">
+                <div class="hopscotch-bubble-container">
+                  <div class="hopscotch-bubble-content">
+                    <h3 class="hopscotch-title">Trying to sign in?</h3>
+                    <div class="hopscotch-content">Someone's already using that email. If that’s you, enter your Email and password here to sign in.</div>
+                  </div><a title="Close" href="#" class="hopscotch-bubble-close hopscotch-close">Close</a>
+                </div>
+                <div class="hopscotch-bubble-arrow-container hopscotch-arrow up"></div>
+              </div>
+              <input name="isJsEnabled" type="hidden" value="false"><input name="loginCsrfParam" id="loginCsrfParam-login" type="hidden" value="ce400bb2-e0d2-4856-8e1c-612a3136f870">
+              <input name="sourceAlias" id="sourceAlias-login" type="hidden" value="0_7r5yezRXCiA_H0CRD8sf6DhOjTKUNps5xGTqeX8EEoi">-->
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="main background " >
+    <form id="regForm" class="reg-form" action="https://www.linkedin.com/start/join-prefill" method="POST" >
+      <h1 class="title">Belong to something greater</h1>
+      <h2 class="subtitle">Join now - it's free.</h2>
+      <div class="reg-alert hidden" tabindex="-1">
+        <span class="alert alert-content"></span>
+        <button type="button" class="dismiss-alert"><span class="screen-reader-text">Close</span></button>
+      </div>
+      <label for="reg-firstname">First name</label>
+      <input type="text" name="firstName" id="reg-firstname" class="reg-firstname" tabindex="1" autofocus="autofocus">
+      <label for="reg-lastname">Last name</label>
+      <input type="text" tabindex="1" name="lastName" id="reg-lastname" class="reg-lastname" aria-required="true">
+      <label for="reg-email">Email</label>
+      <input type="email" name="session_key" class="reg-email" autocapitalize="off" tabindex="1" id="reg-email" autofocus="autofocus">
+      <label for="reg-password">Password (6 or more characters)</label>
+      <input type="password" name="session_password" class="reg-password" id="reg-password" aria-required="true" tabindex="1" autocomplete="new-password">
+      <span class="agreement">By clicking Join now, you agree to tribe's <a tabindex="2" href="/legal/user-agreement">User Agreement</a>, <a tabindex="2" href="/legal/privacy-policy">Privacy Policy</a>, and <a tabindex="2" href="/legal/cookie-policy">Cookie Policy</a>.</span>
+      <input tabindex="1" id="registration-submit" class="registration submit-button" type="submit" value="Join now">
+    </form>
+  </div>
+  <!--<div class="main background lazy-loaded show-join" data-delayed-url="https://static.licdn.com/sc/h/64xk850n3a8uzse6fi11l3vmz">
+    <form id="regForm" class="reg-form" action="https://www.linkedin.com/start/join-prefill" method="POST" data-jsenabled="check" data-autologin="" data-smartlock-save-on-signup="false">
+      <h1 class="title">Be great at what you do</h1>
+      <h2 class="subtitle">Get started - it's free.</h2>
+      <div class="reg-alert hidden" tabindex="-1">
+        <span class="alert alert-content"></span>
+        <button type="button" class="dismiss-alert"><span class="screen-reader-text">Close</span></button>
+      </div>
+      <label for="reg-firstname">First name</label>
+      <input type="text" name="firstName" id="reg-firstname" class="reg-firstname" tabindex="1" autofocus="autofocus">
+      <label for="reg-lastname">Last name</label>
+      <input type="text" tabindex="1" name="lastName" id="reg-lastname" class="reg-lastname" aria-required="true">
+      <label for="reg-email">Email</label>
+      <input type="email" name="session_key" class="reg-email" autocapitalize="off" tabindex="1" id="reg-email" autofocus="autofocus">
+      <label for="reg-password">Password (6 or more characters)</label>
+      <input type="password" name="session_password" class="reg-password" id="reg-password" aria-required="true" tabindex="1" autocomplete="new-password">
+      <span class="agreement">By clicking Join now, you agree to LinkedIn's <a tabindex="2" href="https://www.linkedin.com/legal/user-agreement">User Agreement</a>, <a tabindex="2" href="https://www.linkedin.com/legal/privacy-policy">Privacy Policy</a>, and <a tabindex="2" href="https://www.linkedin.com/legal/cookie-policy">Cookie Policy</a>.</span>
+      <input tabindex="1" id="registration-submit" class="registration submit-button" type="submit" value="Join now">
+    </form>
+  </div>-->
+  <div class="footer"><!--<form class="same-name-search" method="GET" action="https://www.linkedin.com/pub/dir/"><h3 class="title">Find a colleague:</h3><input type="text" name="first" placeholder="First name"><input type="text" name="last" placeholder="Last name"><input type="hidden" name="trk" value="uno-reg-guest-home-name-search"><input type="submit" class="submit-btn" name="search" value="Search" disabled=""></form><div class="directory"><h3 class="title">LinkedIn member directory: </h3><ol><li><a href="https://www.linkedin.com/directory/people-a/">A</a></li><li><a href="https://www.linkedin.com/directory/people-b/">B</a></li><li><a href="https://www.linkedin.com/directory/people-c/">C</a></li><li><a href="https://www.linkedin.com/directory/people-d/">D</a></li><li><a href="https://www.linkedin.com/directory/people-e/">E</a></li><li><a href="https://www.linkedin.com/directory/people-f/">F</a></li><li><a href="https://www.linkedin.com/directory/people-g/">G</a></li><li><a href="https://www.linkedin.com/directory/people-h/">H</a></li><li><a href="https://www.linkedin.com/directory/people-i/">I</a></li><li><a href="https://www.linkedin.com/directory/people-j/">J</a></li><li><a href="https://www.linkedin.com/directory/people-k/">K</a></li><li><a href="https://www.linkedin.com/directory/people-l/">L</a></li><li><a href="https://www.linkedin.com/directory/people-m/">M</a></li><li><a href="https://www.linkedin.com/directory/people-n/">N</a></li><li><a href="https://www.linkedin.com/directory/people-o/">O</a></li><li><a href="https://www.linkedin.com/directory/people-p/">P</a></li><li><a href="https://www.linkedin.com/directory/people-q/">Q</a></li><li><a href="https://www.linkedin.com/directory/people-r/">R</a></li><li><a href="https://www.linkedin.com/directory/people-s/">S</a></li><li><a href="https://www.linkedin.com/directory/people-t/">T</a></li><li><a href="https://www.linkedin.com/directory/people-u/">U</a></li><li><a href="https://www.linkedin.com/directory/people-v/">V</a></li><li><a href="https://www.linkedin.com/directory/people-w/">W</a></li><li><a href="https://www.linkedin.com/directory/people-x/">X</a></li><li><a href="https://www.linkedin.com/directory/people-y/">Y</a></li><li><a href="https://www.linkedin.com/directory/people-z/">Z</a></li><li><a href="https://www.linkedin.com/directory/people-1/">More</a></li><li class="country-search"><a href="https://www.linkedin.com/directory/country_listing/?trk=uno-reg-guest-home-country">Browse by country</a></li></ol></div><div class="links-container"><div class="links"><h3 class="title">General</h3><ul><li><a href="https://www.linkedin.com/start/join?trk=uno-reg-guest-home-join">Sign Up</a></li><li><a href="https://www.linkedin.com/help/linkedin?trk=uno-reg-guest-home-help-center&amp;lang=en">Help Center</a></li><li><a href="https://www.linkedin.com/about-us?trk=uno-reg-guest-home-about">About</a></li><li><a href="https://press.linkedin.com">Press</a></li><li><a href="https://blog.linkedin.com">Blog</a></li><li><a href="https://www.linkedin.com/company/linkedin/careers?trk=uno-reg-guest-home-careers">Careers</a></li><li><a href="https://developer.linkedin.com">Developers</a></li></ul></div><div class="links"><h3 class="title">Business Solutions</h3><ul><li><a href="https://business.linkedin.com/talent-solutions?src=li-footer&amp;utm_source=linkedin&amp;utm_medium=footer">Talent</a></li><li><a href="https://business.linkedin.com/marketing-solutions?src=li-footer&amp;utm_source=linkedin&amp;utm_medium=footer">Marketing</a></li><li><a href="https://business.linkedin.com/sales-solutions?src=li-footer&amp;utm_source=linkedin&amp;utm_medium=footer">Sales</a></li></ul></div><div class="links"><h3 class="title">Browse LinkedIn</h3><ul><li><a href="https://www.linkedin.com/in/updates?trk=uno-reg-guest-home-updates">Updates</a></li><li><a href="https://www.linkedin.com/pulse/discover?trk=uno-reg-guest-home-influencers">Influencers</a></li><li><a href="https://www.linkedin.com/jobs?trk=uno-reg-guest-home-jobs">Jobs</a></li><li><a href="https://www.linkedin.com/mobile?trk=uno-reg-guest-home-mobile">Mobile</a></li><li><a href="https://www.linkedin.com/profinder?trk=uno-reg-guest-home-profinder">ProFinder</a></li></ul></div><div class="links"><h3 class="title">Directories</h3><ul><li><a href="https://www.linkedin.com/directory/people-a/?trk=uno-reg-guest-home-people-directory">Members</a></li><li><a href="https://www.linkedin.com/jobs/directory/?trk=uno-reg-guest-home-jobs-directory">Jobs</a></li><li><a href="https://www.linkedin.com/directory/pulse/?trk=uno-reg-guest-home-pulse">Pulse</a></li><li><a href="https://www.linkedin.com/directory/topics/?trk=uno-reg-guest-home-topics">Topics</a></li><li><a href="https://www.linkedin.com/directory/companies/?trk=uno-reg-guest-home-companies-directory">Companies</a></li><li><a href="https://www.linkedin.com/directory/groups/?trk=uno-reg-guest-home-groups-directory">Groups</a></li><li><a href="https://www.linkedin.com/directory/universities/?trk=uno-reg-guest-home-universities">Universities</a></li><li><a href="https://www.linkedin.com/directory/title/?trk=uno-reg-guest-home-title-directory">Titles</a></li></ul></div></div><div class="legal-nav"><div class="copyright"><img class="logo-copyright lazy-loaded" alt="LinkedIn" src="https://static.licdn.com/sc/h/5koy91fjbrc47yhwyzws65ml7"> © 2016</div><ul><li><a href="https://www.linkedin.com/legal/user-agreement?trk=uno-reg-guest-home-user-agreement">User Agreement</a></li><li><a href="https://www.linkedin.com/legal/privacy-policy?trk=uno-reg-guest-home-privacy-policy">Privacy Policy</a></li><li><a href="https://www.linkedin.com/help/linkedin/answer/34593?lang=en&amp;trk=uno-reg-guest-home-community-guidelines">Community Guidelines</a></li><li><a href="https://www.linkedin.com/legal/cookie-policy?trk=uno-reg-guest-home-cookie-policy">Cookie Policy</a></li><li><a href="https://www.linkedin.com/legal/copyright-policy?trk=uno-reg-guest-home-copyright-policy">Copyright Policy</a></li><li><a href="https://www.linkedin.com/psettings/guest-controls?trk=uno-reg-guest-home-guest-controls">Guest Controls</a></li><li class="lang-selector-container"><input type="checkbox" id="lang-selector-state" name="lang-selector-state"><label for="lang-selector-state" class="lang-selector-state-label">Language</label><form name="languageSelectorForm" id="languageSelectorForm" action="/languageSelector" method="POST"><ul class="lang-selector"><li><button data-locale="in_ID">Bahasa Indonesia</button></li><li><button data-locale="ms_MY">Bahasa Malaysia</button></li><li><button data-locale="cs_CZ">Čeština</button></li><li><button data-locale="da_DK">Dansk</button></li><li><button data-locale="de_DE">Deutsch</button></li><li><span class="current">English</span></li><li><button data-locale="es_ES">Español</button></li><li><button data-locale="zh_TW">正體中文</button></li><li><button data-locale="fr_FR">Français</button></li><li><button data-locale="ko_KR">한국어</button></li><li><button data-locale="it_IT">Italiano</button></li><li><button data-locale="zh_CN">简体中文</button></li><li><button data-locale="nl_NL">Nederlands</button></li><li><button data-locale="ja_JP">日本語</button></li><li><button data-locale="no_NO">Norsk</button></li><li><button data-locale="pl_PL">Polski</button></li><li><button data-locale="pt_BR">Português</button></li><li><button data-locale="ro_RO">Română</button></li><li><button data-locale="ru_RU">Русский</button></li><li><button data-locale="sv_SE">Svenska</button></li><li><button data-locale="tl_PH">Tagalog</button></li><li><button data-locale="th_TH">ภาษาไทย</button></li><li><button data-locale="tr_TR">Türkçe</button></li><li><button data-locale="ar_AE">العربية</button></li></ul><input type="hidden" name="i18nLang" value=""><input type="hidden" name="currenturl" value=""></form></li></ul></div>--></div>
+</div>
+
+<!--<form role="form" (submit)="login($event, username.value, password.value)" *ngIf="!isLoggedIn">
+  <input type="text" #username id="username" required="required" placeholder="Username"> <br />
+  <input type="password" #password id="password" required="required" placeholder="Password"> <br />
+  <button type="submit">Login</button> <br />
+</form>-->

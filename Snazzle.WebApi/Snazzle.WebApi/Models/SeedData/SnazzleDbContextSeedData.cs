@@ -46,7 +46,7 @@ namespace Snazzle.WebApi.Models
       {
         var user = new SnazzleUser
         {
-          UserName = "tony",
+          UserName = "tony@hotreb.com",
           Email = "tony@hotreb.com"
         };
         var userResult = await this.userManager.CreateAsync(user, "P@ssword1!");

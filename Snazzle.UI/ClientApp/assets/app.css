@@ -5,6 +5,13 @@
   transition: opacity 400ms ease-in;
 }*/
 
+.header
+{
+  width:100%;
+  height:70px;
+  background-color:#666;
+}
+
 .animated {
   -webkit-animation-duration: 400ms;
   animation-duration: 400ms;

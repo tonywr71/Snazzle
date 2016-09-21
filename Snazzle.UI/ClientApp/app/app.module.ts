@@ -9,13 +9,13 @@ import { NavMenu }         from './nav-menu/nav-menu';
 import { AppComponent }         from './app.component';
 import { AppRoutingModule } from '../app.routing';
 import { People }         from './people/people';
-//import { LoginComponent2 }         from './login2/login';
-//import { LogoutComponent2 }         from './login2/logout';
 import { AuthenticationService } from '../services/AuthenticationService';
 import { HttpInterceptor } from '../services/HttpInterceptor';
 import { CoreModule } from '../core/core.module';
 import { LoginModule } from './login/login.module';
 import { AdminModule } from './admin/admin.module';
+import { MainLoginComponent } from './login/main-login.component';
+import { LogoutComponent } from './login/logout';
 
 @NgModule({
     imports: [
@@ -33,11 +33,11 @@ import { AdminModule } from './admin/admin.module';
         NavMenu,
         AppComponent,
         HomeComponent,
+        MainLoginComponent,
         Counter,
         FetchData,
-        People//,
-        //LoginComponent2,
-        //LogoutComponent2
+        People,
+        LogoutComponent
     ],
     providers: [
         AuthenticationService,

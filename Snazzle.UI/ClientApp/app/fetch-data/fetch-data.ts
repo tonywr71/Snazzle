@@ -1,21 +1,24 @@
-import * as ng from '@angular/core';
+import { Component } from '@angular/core';
 import { Headers } from '@angular/http';
 import { HttpInterceptor } from '../../services/HttpInterceptor'
 import { AuthenticationService } from '../../services/AuthenticationService';
 import { Router } from '@angular/router';
 
-@ng.Component({
+@Component({
   selector: 'fetch-data',
   template: require('./fetch-data.html') 
 })
 export class FetchData {
     public forecasts: WeatherForecast[];
 
-    constructor(private authenticationService: AuthenticationService, private http: HttpInterceptor, private router: Router) {
+    constructor(
+        private authenticationService: AuthenticationService,
+        private http: HttpInterceptor,
+        private router: Router) {
 
         var jwt = localStorage.getItem("access_token");
-        console.log('has jwt:');
-        console.log(jwt);
+        //console.log('has jwt:');
+        //console.log(jwt);
         var headers = new Headers();
         headers.append('Authorization', 'Bearer ' + jwt );
 

@@ -20,7 +20,7 @@ export class LoginService {
 
         return Observable.create(observer => {
             let url = "http://localhost:5100/connect/token";
-            let body = "grant_type=password&client_id=snazzleClient&username=" + username + "&password=" + password + "&scope=profile roles";
+            let body = "grant_type=password&client_id=snazzleClient&username=" + username + "&password=" + password + "&scope=profile roles email";
             let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
             let options = new RequestOptions({ headers: headers });
 

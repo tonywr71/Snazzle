@@ -43,7 +43,7 @@ namespace Snazzle
                //.ConnectSources(directive=>directive.CustomSources("http://localhost:5100/api/SampleData/WeatherForecasts"))
                .ConnectSources(directive=>directive.CustomSources("*") )
                .ImageSources(directive => directive.Self()
-                   .CustomSources("*"))
+                   .CustomSources("data:"))
                .ScriptSources(directive => directive.Self()
                .UnsafeEval()
                    .UnsafeInline())

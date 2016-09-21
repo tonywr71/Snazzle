@@ -14,9 +14,11 @@ export class HomeComponent {
     }
 
     isAuthorized(): boolean {
-        var isAuthorized = this.userProfileService.isLoggedIn;
         this.jwt = localStorage.getItem("access_token");
-        return isAuthorized;
+        if (this.jwt !== null) {
+            this.userProfileService.isLoggedIn = true;
+        }
+        return this.userProfileService.isLoggedIn;
     }
 
 
