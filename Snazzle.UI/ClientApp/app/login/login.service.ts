@@ -52,15 +52,17 @@ export class LoginService {
             let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
             let options = new RequestOptions({ headers: headers });
 
-            return this.http.post(url, body, options).flatMap(data => { return this.login(email, password); }).subscribe(
+            return this.http.post(url, body, options)
+                .flatMap(data =>
+                {
+                    if (data.ok === true) {
+                        return this.login(email, password);
+                    }
+                    else {
+                        return Observable.empty;
+                    }
+                }).subscribe(
                 response => {
-                    //this.login(email, password);
-                    //localStorage.setItem('access_token', response.json().access_token);
-                    //localStorage.setItem('expires_in', response.json().expires_in);
-                    //localStorage.setItem('token_type', response.json().token_type);
-                    //localStorage.setItem('userName', email);
-                    //this.userProfileService.isLoggedIn = true;
-
                     console.log("register success!");
                     observer.next(true);
                     observer.complete();
