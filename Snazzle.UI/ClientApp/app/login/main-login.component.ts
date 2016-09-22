@@ -40,15 +40,30 @@ export class MainLoginComponent implements OnDestroy {
             .subscribe(result => {
                 if (result === true) {
                     this.toastService.activate(`Successfully logged in`);
-                    console.log('yay');
                     if (this.userProfileService.isLoggedIn) {
                         console.log('you are logged in');
                     }
                 }
                 else {
-                    console.log('nay');
+                    console.log('failed to log in');
                 }
             });
+    }
+
+    register(event, firstName, lastName, email, password) {
+        event.preventDefault();
+
+        this.loginSub = this.loginService
+            .register(firstName, lastName, email, password)
+            .subscribe(result => {
+                if (result === true) {
+                    console.log("registered");
+                }
+                else {
+                    console.log("failed to register");
+                }
+            });
+
     }
 
     logout() {

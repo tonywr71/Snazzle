@@ -9,5 +9,7 @@ namespace Snazzle.WebApi.Models
 {
   public class SnazzleUser : OpenIddictUser
   {
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
   }
 }

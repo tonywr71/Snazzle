@@ -8,7 +8,7 @@ using Snazzle.WebApi.Models;
 namespace Snazzle.WebApi.Migrations
 {
     [DbContext(typeof(SnazzleDbContext))]
-    [Migration("20160915072542_First-Migration")]
+    [Migration("20160922064924_FirstMigration")]
     partial class FirstMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -260,6 +260,10 @@ namespace Snazzle.WebApi.Migrations
                         .HasAnnotation("MaxLength", 256);
 
                     b.Property<bool>("EmailConfirmed");
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<string>("LastName");
 
                     b.Property<bool>("LockoutEnabled");
 

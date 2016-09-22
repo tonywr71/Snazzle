@@ -41,13 +41,15 @@ namespace Snazzle.WebApi.Models
         }
       }
 
-      var snazzleUser = await this.userManager.FindByEmailAsync("tony@hotreb.com");
+      var snazzleUser = await this.userManager.FindByEmailAsync("tony@tribe.com");
       if (snazzleUser == null)
       {
         var user = new SnazzleUser
         {
-          UserName = "tony@hotreb.com",
-          Email = "tony@hotreb.com"
+          UserName = "tony@tribe.com",
+          Email = "tony@tribe.com",
+          FirstName = "Tony",
+          LastName = "Wright"
         };
         var userResult = await this.userManager.CreateAsync(user, "P@ssword1!");
         if (!userResult.Succeeded)
@@ -56,6 +58,10 @@ namespace Snazzle.WebApi.Models
           {
             Debug.WriteLine(error.Description);
           }
+        }
+        else
+        {
+          snazzleUser = await this.userManager.FindByEmailAsync("tony@tribe.com");
         }
 
       }

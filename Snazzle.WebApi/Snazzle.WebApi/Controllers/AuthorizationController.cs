@@ -125,6 +125,15 @@ namespace Snazzle.WebApi.Controllers
       return SignOut(OpenIdConnectServerDefaults.AuthenticationScheme);
     }
 
+    [HttpPost("~/connect/register")]
+    [Produces("application/json")]
+    public async Task<IdentityResult> Register(SnazzleUserDto dto)
+    {
+      var user = new SnazzleUser { UserName = dto.Email, Email = dto.Email, FirstName=dto.FirstName, LastName=dto.LastName};
+      var result = await _userManager.CreateAsync(user, dto.Password);
+      return result;
+    }
+
     [HttpPost("~/connect/token")]
     [Produces("application/json")]
     public async Task<IActionResult> Exchange(OpenIdConnectRequest request)
@@ -161,28 +170,8 @@ namespace Snazzle.WebApi.Controllers
           await _userManager.ResetAccessFailedCountAsync(user);
         }
 
-        var identity = await _userManager.CreateIdentityAsync(user, request.GetScopes());
-
-        // Add a custom claim that will be persisted
-        // in both the access and the identity tokens.
-        identity.AddClaim("username", user.UserName,
-            OpenIdConnectConstants.Destinations.AccessToken,
-            OpenIdConnectConstants.Destinations.IdentityToken);
-
-        //identity.AddClaim("roles", user.UserName,
-        //    OpenIdConnectConstants.Destinations.AccessToken,
-        //    OpenIdConnectConstants.Destinations.IdentityToken);
-
-        // Create a new authentication ticket holding the user identity.
-        var ticket = new AuthenticationTicket(
-            new ClaimsPrincipal(identity),
-            new AuthenticationProperties(),
-            OpenIdConnectServerDefaults.AuthenticationScheme);
-
-        ticket.SetResources(request.GetResources());
-        ticket.SetScopes(request.GetScopes());
-
-        return SignIn(ticket.Principal, ticket.Properties, ticket.AuthenticationScheme);
+        var signInResult = await SignInAndGetToken(request, user);
+        return signInResult;
       }
 
       return BadRequest(new OpenIdConnectResponse
@@ -190,6 +179,32 @@ namespace Snazzle.WebApi.Controllers
         Error = OpenIdConnectConstants.Errors.UnsupportedGrantType,
         ErrorDescription = "The specified grant type is not supported."
       });
+    }
+
+    private async Task<IActionResult> SignInAndGetToken(OpenIdConnectRequest request, SnazzleUser user)
+    {
+      var identity = await _userManager.CreateIdentityAsync(user, request.GetScopes());
+
+      // Add a custom claim that will be persisted
+      // in both the access and the identity tokens.
+      identity.AddClaim("username", user.UserName,
+          OpenIdConnectConstants.Destinations.AccessToken,
+          OpenIdConnectConstants.Destinations.IdentityToken);
+
+      //identity.AddClaim("roles", user.UserName,
+      //    OpenIdConnectConstants.Destinations.AccessToken,
+      //    OpenIdConnectConstants.Destinations.IdentityToken);
+
+      // Create a new authentication ticket holding the user identity.
+      var ticket = new AuthenticationTicket(
+          new ClaimsPrincipal(identity),
+          new AuthenticationProperties(),
+          OpenIdConnectServerDefaults.AuthenticationScheme);
+
+      ticket.SetResources(request.GetResources());
+      ticket.SetScopes(request.GetScopes());
+      var signInResult = SignIn(ticket.Principal, ticket.Properties, ticket.AuthenticationScheme);
+      return signInResult;
     }
   }
 }

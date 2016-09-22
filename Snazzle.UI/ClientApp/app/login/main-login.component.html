@@ -30,7 +30,7 @@
     </div>
   </div>
   <div class="main background " >
-    <form id="regForm" class="reg-form" action="https://www.linkedin.com/start/join-prefill" method="POST" >
+    <form role="form" id="regForm" (submit)="register($event, regFirstName.value, regLastName.value, regEmail.value, regPassword.value)" class="reg-form"  >
       <h1 class="title">Belong to something greater</h1>
       <h2 class="subtitle">Join now - it's free.</h2>
       <div class="reg-alert hidden" tabindex="-1">
@@ -38,13 +38,13 @@
         <button type="button" class="dismiss-alert"><span class="screen-reader-text">Close</span></button>
       </div>
       <label for="reg-firstname">First name</label>
-      <input type="text" name="firstName" id="reg-firstname" class="reg-firstname" tabindex="1" autofocus="autofocus">
+      <input type="text" #regFirstName name="regFirstName" id="reg-firstname" class="reg-firstname" tabindex="1" autofocus="autofocus" value="Jarod">
       <label for="reg-lastname">Last name</label>
-      <input type="text" tabindex="1" name="lastName" id="reg-lastname" class="reg-lastname" aria-required="true">
+      <input type="text" #regLastName tabindex="1" name="regLastName" id="reg-lastname" class="reg-lastname" aria-required="true" value="Wright">
       <label for="reg-email">Email</label>
-      <input type="email" name="session_key" class="reg-email" autocapitalize="off" tabindex="1" id="reg-email" autofocus="autofocus">
+      <input type="email" #regEmail name="regEmail" class="reg-email" autocapitalize="off" tabindex="1" id="reg-email" autofocus="autofocus" value="jarod@tribe.com">
       <label for="reg-password">Password (6 or more characters)</label>
-      <input type="password" name="session_password" class="reg-password" id="reg-password" aria-required="true" tabindex="1" autocomplete="new-password">
+      <input type="password" #regPassword name="regPassword" class="reg-password" id="reg-password" aria-required="true" tabindex="1" autocomplete="new-password" value="P@ssword1!">
       <span class="agreement">By clicking Join now, you agree to tribe's <a tabindex="2" href="/legal/user-agreement">User Agreement</a>, <a tabindex="2" href="/legal/privacy-policy">Privacy Policy</a>, and <a tabindex="2" href="/legal/cookie-policy">Cookie Policy</a>.</span>
       <input tabindex="1" id="registration-submit" class="registration submit-button" type="submit" value="Join now">
     </form>
