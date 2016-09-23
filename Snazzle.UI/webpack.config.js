@@ -34,6 +34,7 @@ module.exports = merge({
       new HtmlWebpackPlugin({
         template: 'index.template.ejs',
         inject: 'body',
+        title: 'Tribe'
       }),
       new webpack.DllReferencePlugin({
         context: __dirname,
