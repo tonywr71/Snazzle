@@ -1,6 +1,7 @@
 /// <binding ProjectOpened='Watch - Development' />
 var path = require('path');
 var webpack = require('webpack');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 var merge = require('extendify')({ isDeep: true, arrays: 'concat' });
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var extractCSS = new ExtractTextPlugin('styles.css');
@@ -30,6 +31,10 @@ module.exports = merge({
   },
   plugins: [
       extractCSS,
+      new HtmlWebpackPlugin({
+        template: 'index.template.ejs',
+        inject: 'body',
+      }),
       new webpack.DllReferencePlugin({
         context: __dirname,
         manifest: require('./wwwroot/dist/vendor-manifest.json')
