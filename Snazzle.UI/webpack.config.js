@@ -1,4 +1,4 @@
-/// <binding ProjectOpened='Watch - Development' />
+﻿/// <binding ProjectOpened='Watch - Development' />
 var path = require('path');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -8,6 +8,7 @@ var extractCSS = new ExtractTextPlugin('styles.css');
 var devConfig = require('./webpack.config.dev');
 var prodConfig = require('./webpack.config.prod');
 var isDevelopment = process.env.ASPNETCORE_ENVIRONMENT === 'Development';
+
 
 module.exports = merge({
   resolve: {
@@ -31,11 +32,6 @@ module.exports = merge({
   },
   plugins: [
       extractCSS,
-      new HtmlWebpackPlugin({
-        template: 'index.template.ejs',
-        inject: 'body',
-        title: 'Tribe'
-      }),
       new webpack.DllReferencePlugin({
         context: __dirname,
         manifest: require('./wwwroot/dist/vendor-manifest.json')
