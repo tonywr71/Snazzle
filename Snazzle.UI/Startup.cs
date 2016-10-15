@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System.IO;
 using NWebsec.AspNetCore.Middleware;
+using Microsoft.AspNetCore.Http;
 
 namespace Snazzle
 {
@@ -75,10 +76,9 @@ namespace Snazzle
       app.Use(async (context, next) =>
       {
         await next();
-
         if (context.Response.StatusCode == 404 && !Path.HasExtension(context.Request.Path.Value))
         {
-          context.Request.Path = "/"; // Angular root page here 
+          context.Request.Path = "/index.html"; // Angular root page here 
           await next();
         }
 

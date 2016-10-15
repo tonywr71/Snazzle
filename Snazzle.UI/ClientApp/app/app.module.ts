@@ -33,8 +33,8 @@ import { LogoutComponent } from './login/logout';
         NavMenu,
         AppComponent,
         HomeComponent,
-        MainLoginComponent,
         Counter,
+        MainLoginComponent,
         FetchData,
         People,
         LogoutComponent

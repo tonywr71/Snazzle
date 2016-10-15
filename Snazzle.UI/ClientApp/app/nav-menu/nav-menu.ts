@@ -11,6 +11,6 @@ export class NavMenu {
     }
 
     isAuthorized(): boolean {
-        return this.authenticationService.isAuthorized();
+        return true; //this.authenticationService.isAuthorized();
     }
 }
